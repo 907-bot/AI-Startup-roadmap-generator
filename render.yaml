@@ -1,1 +1,23 @@
+services:
+  - type: web
+    name: ai-startup-roadmap-generator
+    runtime: python
+    plan: free
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: PORT
+        value: 10000
+      - key: PERSIST_DIR
+        value: /opt/render/project/.data/chroma_db
+      - key: CHROMA_DB_PATH
+        value: /opt/render/project/.data/chroma_db
+    disk:
+      name: chromadb-storage
+      mountPath: /opt/render/project/.data
+      sizeGB: 1
+    healthCheckPath: /
+    autoDeploy: true
 
